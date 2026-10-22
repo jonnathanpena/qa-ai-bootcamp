@@ -1,0 +1,22 @@
+{
+  "name": "trade-qa-automation-demo",
+  "version": "1.0.0",
+  "description": "QA automation demo for insurance domain: Playwright E2E (TesterRank PolicyDekho) + K6 load tests (httpbin.org)",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:report": "playwright show-report",
+    "generate:sample-pdf": "ts-node tests/fixtures/generate-sample-pdf.ts",
+    "k6:smoke": "k6 run k6/scripts/smoke.js",
+    "k6:load": "k6 run k6/scripts/load.js",
+    "k6:stress": "k6 run k6/scripts/stress.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.20.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.0"
+  }
+}
