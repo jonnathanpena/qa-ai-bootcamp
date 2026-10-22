@@ -7,9 +7,12 @@ test.describe('Beginner exercises', () => {
     await dashboardPage.goToQuoteFlow().click();
 
     // This exercises chained dropdown handling — each selection triggers a dynamic load.
-    await quotePage.selectCategory('Health');
-    await quotePage.selectSubcategory('Individual');
-    await quotePage.selectPlan('Standard');
+    await quotePage.selectCategory('Health Insurance');
+    await quotePage.selectPlan('standard');
+    await quotePage.enterDateOfBirth('1990-01-01');
+    await quotePage.selectSumInsured('500000');
+    await quotePage.selectTerm('1');
+    await quotePage.calculatePremium();
 
     await expect(quotePage.getPremiumAmount()).toBeVisible();
     await expect(quotePage.getPremiumAmount()).toHaveText(/₹\d+/);

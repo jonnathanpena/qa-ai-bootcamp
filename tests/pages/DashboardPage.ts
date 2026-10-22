@@ -61,12 +61,15 @@ export class DashboardPage {
     const match = text.match(/SL-[A-Z0-9-]+/);
     const policyNo = match ? match[0] : '';
     await firstRow.click();
+
+    console.log(`Opened policy row for policy number: ${policyNo}`);
+
     return policyNo;
   }
 
   goToQuoteFlow(): Locator {
     // Entry point for the health quote / premium calculator flow from the dashboard quick links.
-    return this.page.getByRole('link', { name: /Premium Calculator/i });
+    return this.page.getByTestId('link-calculator');
   }
 
   goToClaims(): Locator {

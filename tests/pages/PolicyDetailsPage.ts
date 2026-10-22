@@ -9,7 +9,7 @@ export class PolicyDetailsPage {
   }
 
   getPolicyNumber(): Locator {
-    return this.page.getByText(/SL-[A-Z0-9-]+/);
+    return this.page.getByRole('cell', { name: 'SL-HLT-2024-' });
   }
 
   getCoverageAmount(): Locator {
@@ -17,10 +17,10 @@ export class PolicyDetailsPage {
   }
 
   getPremiumAmount(): Locator {
-    return this.page.getByText(/₹\d+/);
+    return this.page.getByTestId('policy-row-0').getByText(/₹\d+/);
   }
 
   getStatusBadge(): Locator {
-    return this.page.getByText(/Active|Inactive|Pending/i);
+    return this.page.getByTestId('policy-row-0').locator('span').getByText(/Active|Inactive|Pending/i);
   }
 }
