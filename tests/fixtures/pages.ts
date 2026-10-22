@@ -2,13 +2,11 @@ import { test as base } from '@playwright/test';
 import { DashboardPage } from '../pages/DashboardPage';
 import { QuotePage } from '../pages/QuotePage';
 import { PolicyDetailsPage } from '../pages/PolicyDetailsPage';
-import { ClaimPage } from '../pages/ClaimPage';
 
 interface PageFixtures {
   dashboardPage: DashboardPage;
   quotePage: QuotePage;
   policyDetailsPage: PolicyDetailsPage;
-  claimPage: ClaimPage;
 }
 
 // Extending `test` with one fixture per Page Object removes `new XPage(page)` boilerplate
@@ -22,9 +20,6 @@ export const test = base.extend<PageFixtures>({
   },
   policyDetailsPage: async ({ page }, use) => {
     await use(new PolicyDetailsPage(page));
-  },
-  claimPage: async ({ page }, use) => {
-    await use(new ClaimPage(page));
   },
 });
 

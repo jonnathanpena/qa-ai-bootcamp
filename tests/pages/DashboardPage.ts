@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 /**
  * Dashboard ("MY ACTIVE POLICIES" table) — the Beginner "Policy Management & Dashboard" exercise.
@@ -24,37 +24,6 @@ export class DashboardPage {
     return this.policyRows.filter({ hasText: /^SL-/ });
   }
 
-  async getPolicyCount(): Promise<number> {
-    return this.dataRows().count();
-  }
-
-  private rowByPolicyNumber(policyNo: string): Locator {
-    return this.policyRows.filter({ hasText: policyNo });
-  }
-
-  async getPolicyStatusByNumber(policyNo: string): Promise<string> {
-    const row = this.rowByPolicyNumber(policyNo);
-    // Status is rendered as a badge/cell with one of a known set of words.
-    const statusCell = row.getByText(/Active|Inactive|Pending/i);
-    return (await statusCell.first().innerText()).trim();
-  }
-
-  async getNextDueDate(policyNo: string): Promise<string> {
-    const row = this.rowByPolicyNumber(policyNo);
-    // Dates are rendered like "15 May 2026" — match that shape instead of relying on column index.
-    const dateCell = row.getByText(/\d{1,2}\s\w+\s\d{4}/);
-    return (await dateCell.first().innerText()).trim();
-  }
-
-  async expectPolicyStatus(policyNo: string, status: 'Active' | 'Inactive' | 'Pending'): Promise<void> {
-    const row = this.rowByPolicyNumber(policyNo);
-    await expect(row.getByText(status, { exact: true })).toBeVisible();
-  }
-
-  async openPolicy(policyNo: string): Promise<void> {
-    await this.rowByPolicyNumber(policyNo).click();
-  }
-
   async openFirstPolicyRow(): Promise<string> {
     const firstRow = this.dataRows().first();
     const text = await firstRow.innerText();
@@ -70,9 +39,5 @@ export class DashboardPage {
   goToQuoteFlow(): Locator {
     // Entry point for the health quote / premium calculator flow from the dashboard quick links.
     return this.page.getByTestId('link-calculator');
-  }
-
-  goToClaims(): Locator {
-    return this.page.getByRole('link', { name: /File a Claim/i });
   }
 }
